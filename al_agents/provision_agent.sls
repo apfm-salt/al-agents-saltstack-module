@@ -1,4 +1,4 @@
-{% from "al_agents/defaults.sls" import alertlogic_provision_options, alertlogic_for_imaging with context %}
+{% from "al_agents/map.jinja" import alertlogic_provision_options, alertlogic_for_imaging with context %}
 {% from "al_agents/config.sls" import alertlogic_for_imaging with context %}
 
 include:

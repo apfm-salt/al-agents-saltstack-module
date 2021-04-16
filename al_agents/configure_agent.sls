@@ -1,4 +1,4 @@
-{% from "al_agents/defaults.sls" import alertlogic_configure_options, alertlogic_registration_key %}
+{% from "al_agents/map.jinja" import alertlogic_configure_options, alertlogic_registration_key %}
 {% from "al_agents/config.sls" import alertlogic_registration_key with context %}
 
 include:

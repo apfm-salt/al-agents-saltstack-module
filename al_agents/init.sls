@@ -1,4 +1,4 @@
-{% from "al_agents/defaults.sls" import alertlogic_pkg_url with context %}
+{% from "al_agents/map.jinja" import alertlogic_pkg_url with context %}
 
 
 al-agent:

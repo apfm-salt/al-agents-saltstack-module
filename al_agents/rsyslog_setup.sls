@@ -1,4 +1,4 @@
-{% from "al_agents/defaults.sls" import alertlogic_initscript with context %}
+{% from "al_agents/map.jinja" import alertlogic_initscript with context %}
 
 include:
   - al_agents
