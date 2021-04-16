@@ -1,4 +1,4 @@
-{% from "al_agents/config.sls" import alertlogic_registration_key, alertlogic_egress_url, alertlogic_proxy_url, alertlogic_port, alertlogic_for_autoscaling, alertlogic_for_imaging with context %}
+{% from "al_agents/defaults.sls" import alertlogic_registration_key, alertlogic_egress_url, alertlogic_proxy_url, alertlogic_port, alertlogic_for_autoscaling, alertlogic_for_imaging with context %}
 
 {% set alertlogic_linux_configure = [] %}
 {% set alertlogic_linux_provision = [] %}
