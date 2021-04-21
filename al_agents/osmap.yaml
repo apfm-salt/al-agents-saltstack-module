@@ -1,0 +1,21 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+
+Debian:
+{%- if grains['osmajorrelease'] >= 7 %}
+    syslog_ng_source: s_all
+{%- elif grains['osmajorrelease'] < 7 %}
+    syslog_ng_source: s_sys
+{%- endif %}
+
+RedHat:
+{%- if grains['osmajorrelease'] >= 6 %}
+  syslog_ng_source: s_all
+{%- elif grains['osmajorrelease'] < 6 %}
+  syslog_ng_source: s_sys
+{%- endif %}
+
+Windows:
+  package: al_agent-LATEST.msi
+  keyfile: 'C:\Program Files (x86)\Common Files\AlertLogic\host_key.pem'

@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+
+Debian:
+  package: al-agent_LATEST_{{ grains['osarch'] }}.deb
+  initscript: rsyslog
+
+RedHat:
+  package: al-agent-LATEST-1.{{ grains['cpuarch'] }}.rpm
+  initscript: rsyslog
