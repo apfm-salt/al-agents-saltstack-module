@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+
+{%- set osmajorrelease = salt['grains.get']('osmajorrelease', grains.osrelease_info[0]) %}
+
+Debian:
+{%- if osmajorrelease >= 7 %}
+    syslog_ng_source: s_all
+{%- else %}
+    syslog_ng_source: s_sys
+{%- endif %}
+
+RedHat:
+{%- if osmajorrelease >= 6 %}
+  syslog_ng_source: s_all
+{%- else %}
+  syslog_ng_source: s_sys
+{%- endif %}
+
+Windows:
+  package_name: AL Agent
+  package_file: al_agent-LATEST.msi
+  service_name: al_agent
+  keyfile: 'C:\Program Files (x86)\Common Files\AlertLogic\host_key.pem'

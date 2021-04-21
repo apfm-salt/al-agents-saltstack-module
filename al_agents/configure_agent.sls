@@ -1,13 +1,12 @@
-{% from "al_agents/map.jinja" import alertlogic_configure_options, alertlogic_registration_key %}
-{% from "al_agents/defaults.sls" import alertlogic_registration_key with context %}
+{%- from "al_agents/map.jinja" import al_agents_settings with context %}
 
 include:
   - al_agents
 
-{% if alertlogic_registration_key != False %}
+{%- if al_agents_settings.registration_key %}
 configure_agent:
   cmd.run:
-    - name: ./al-agent configure {{ alertlogic_configure_options }}
+    - name: ./al-agent configure {{ al_agents_settings.configure_options }}
     - user: root
     - cwd: /etc/init.d
     - unless:

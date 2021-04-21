@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+
+{%- set arch = salt['grains.get']('osarch', grains['cpuarch']) %}
+
+Debian:
+  package_file: al-agent_LATEST_{{ arch }}.deb
+
+RedHat:
+  package_file: al-agent-LATEST-1.{{ arch }}.rpm
