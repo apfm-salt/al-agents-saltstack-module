@@ -1,7 +1,7 @@
-{%- from "al_agents/map.jinja" import al_agents_settings with context %}
+{%- from "alertlogic/agent/map.jinja" import al_agent_settings with context %}
 
 include:
-  - al_agents
+  - alertlogic.agent
 
 /etc/syslog-ng/syslog-ng.conf:
   file.append:
@@ -14,10 +14,10 @@ include:
 
 /etc/syslog-ng/conf.d/alertlogic.conf:
   file.managed:
-    - source: salt://al_agents/files/syslog-ng/alertlogic.conf
+    - source: salt://alertlogic/files/syslog-ng/alertlogic.conf
     - template: jinja
     - defaults:
-       syslog_ng_source: {{ al_agents_settings.syslog_ng_source }}
+       syslog_ng_source: {{ al_agent_settings.syslog_ng_source }}
     - onlyif:
       - ls /etc/init.d/syslog-ng
 

@@ -1,0 +1,73 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+{# Attempt to restrict pillar.get calls to the map.jinja such that we can
+   improve pillar performance on the master.  Generally heavy pillar usage has a
+   large impact on the CPU/Memory load of a SaltMaster, and it has an even worse
+   impact on time spent processing git pillar data. #}
+
+{% import_yaml 'alertlogic/agent/defaults.yaml' as defaults %}
+
+{# merge osfamily specific defaults over our generic defaults #}
+{% import_yaml 'alertlogic/agent/osfamilymap.yaml' as osfamilymap %}
+{% set osfamily = salt['grains.filter_by'](osfamilymap, grain='os_family') or {} %}
+{% do salt['defaults.merge'](defaults['alertlogic']['agent'], osfamily) %}
+
+{# merge os specific defaults over our defaults #}
+{% import_yaml 'alertlogic/agent/osmap.yaml' as osmap %}
+{% set osmap = salt['grains.filter_by'](osmap, grain='os') or {} %}
+{% do salt['defaults.merge'](defaults['alertlogic']['agent'], osmap) %}
+
+{# Allow custom imports to reduce pillar load on the master #}
+{% set import_file = salt['pillar.get']('alertlogic:agent:defaults', '') %}
+{% if import_file|length > 0 %}
+  {% set custom_defaults = {} %}
+  {% set import_type = import_file|lower|regex_match('.*\.(json|ya?ml)$') %}
+  {% if import_type|length > 0 %}
+    {% if import_type[0] in ['json'] %}
+      {% import_json import_file as custom_defaults %}
+    {% elif import_type[0] in ['yml', 'yaml'] %}
+      {% import_yaml import_file as custom_defaults %}
+    {% endif %}
+  {% endif %}
+  {% do salt['defaults.merge'](defaults, custom_defaults) %}
+{% endif %}
+
+{# While we try to encourage usage of custom defaults within the state tree, we
+   want to be flexible enough to support pillar overrides for any setting #}
+{% set al_agent_settings = salt['pillar.get']('alertlogic:agent', defaults['alertlogic']['agent'], merge=True) %}
+
+{% set configure_options = [] %}
+{% set provision_options = [] %}
+{% set install_options = [] %}
+
+{# Setting variables for provisioning of the agent #}
+{% if al_agent_settings.registration_key|length > 0 %}
+  {% if salt.file.file_exists(al_agent_settings.keyfile) %}
+    {% do install_options.append('PROV_NOW=0') %}
+    {% do install_options.append('INSTALL_ONLY=1') %}
+  {% else %}
+    {% do install_options.append('PROV_KEY=' ~ al_agent_settings.registration_key) %}
+    {% do provision.append('--key ' ~ al_agent_settings.registration_key) %}
+  {% endif %}
+{% endif %}
+
+{# Setting variables for configuring the agent #}
+{% if al_agent_settings.proxy_url|length > 0 %}
+  {% do configure_options.append(' --proxy ' ~ al_agent_settings.proxy_url) %}
+  {% do install_options.append('USE_PROXY=' ~ al_agent_settings.proxy_url) %}
+{% endif %}
+
+{% if al_agent_settings.egress_url|length > 0 %}
+  {% do configure_options.append('--host {{ al_agent_settings.egress_url }}') %}
+  {% do install_options.append('SENSOR_HOST={{ al_agent_settings.egress_url}}') %}
+{% endif %}
+
+{% if al_agent_settings.for_imaging %}
+  {% do install_options.append('PROV_ONLY=host') %}
+  {% do install_options.append('INSTALL_ONLY=1') %}
+{% endif %}
+
+{% do al_agent_settings.update({'configure_options': configure_options|join(' ')}) %}
+{% do al_agent_settings.update({'provision_options': provision_options|join(' ')}) %}
+{% do al_agent_settings.update({'install_options': install_options|join(' ')}) %}

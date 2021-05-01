@@ -1,22 +1,36 @@
-{%- from "al_agents/map.jinja" import al_agents_settings with context %}
+{%- from "alertlogic/agent/map.jinja" import al_agent_settings with context %}
 
-{{ al_agents_settings.package_name }}:
-  pkg.installed:
-{%- if grains['os'] == 'Windows' %}
-{# install from the formula winrepo definition #}
-    - name: {{ al_agents_settings.package_name }}
-    - extra_install_flags: {{ al_agents_settings.install_options }}
-{%- else %}
-    - sources:
-      - {{ al_agents_settings.package_name }}: {{ al_agents_settings.package_url }}/{{ al_agents_settings.package_file }}
+include:
+  - alertlogic.agent.package
+
+{# Not used necessary for cloud installs #}
+{%- if al_agent_settings.registration_key %}
+"Configure AlertLogic Agent":
+  cmd.run:
+    - name: ./al-agent configure {{ al_agent_settings.configure_options }}
+    - user: root
+    - cwd: /etc/init.d
+    - unless:
+      - ls {{ al_agent_settings.keyfile }}
+{% endif %}
+
+{%- if not al_agent_settings.for_imaging %}
+"Provision AlertLogic Agent":
+  cmd.run:
+    - user: root
+    - name: /etc/init.d/al-agent provision {{ al_agent_settings.provision_options }}
+    - unless:
+      - ls {{ al_agent_settings.keyfile }}
+
+al-agent-provision:
+  module.run:
+    - order: last
+    - name: service.restart
+    - m_name: al-agent
 {%- endif %}
-  service.running:
-    - name: {{ al_agents_settings.service_name }}
-    - enable: True
-    - restart: True
-    - required:
-      - pkg: {{ al_agents_settings.package_name }}
-{# {%- if salt.file.file_exists(al_agents_settings.keyfile) %}
-    - watch:
-      - file: {{ al_agents_settings.keyfile }}
-{%- endif %} #}
+
+configure_selinux:
+  cmd.run:
+    - name: semanage port -a -t syslogd_port_t -p tcp 1514
+    - onlyif:
+      - grep SELINUX=enforcing /etc/selinux/config
