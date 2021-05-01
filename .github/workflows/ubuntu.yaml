@@ -1,0 +1,27 @@
+name: Ubuntu
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ubuntu:${{ matrix.version }}
+    strategy:
+      matrix:
+        version: ['16.04', '18.04', '20.04']
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Salt
+        run: |
+          apt-get -y update
+          apt-get -y install curl
+          curl -o bootstrap.sh http://bootstrap.saltstack.org
+          sh ./bootstrap.sh -X
+
+      # FIXME move this to a testing tool
+      - name: Run Tests
+        run: |
+          salt-call -l debug --local -c .salttest state.show_sls alertlogic.user
+          salt-call -l debug --local -c .salttest state.show_sls alertlogic.agent

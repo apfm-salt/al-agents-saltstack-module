@@ -1,0 +1,14 @@
+# This is a minimalized framework which can be used with:
+# salt-call -l debug --local -c .salttest ...
+id: salt-test
+file_client: local
+local: True
+cache_jobs: False
+grains:
+  deployment: github
+root_dir: .
+log_file: salttest.log
+file_roots:
+  base: ["."]
+states_dirs: ["."]
+cachedir: tmp

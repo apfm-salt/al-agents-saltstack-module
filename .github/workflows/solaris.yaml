@@ -1,0 +1,19 @@
+name: Solaris
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Tests
+        uses: vmactions/solaris-vm@v0.0.3
+        with:
+          usesh: true
+          prepare: pkgutil -i -i curl
+          run: |
+            curl -o bootstrap.sh http://bootstrap.saltstack.org
+            sh ./bootstrap.sh -X
+            salt-call -l debug --local -c .salttest state.show_sls alertlogic.user
+            salt-call -l debug --local -c .salttest state.show_sls alertlogic.agent

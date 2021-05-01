@@ -1,0 +1,26 @@
+name: CentOS
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: centos:${{ matrix.version }}
+    strategy:
+      matrix:
+        version: ['6', '7', '8']
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Salt
+        run: |
+          yum -y install curl
+          curl -o bootstrap.sh http://bootstrap.saltstack.org
+          sh ./bootstrap.sh -X
+
+      # FIXME move this to a testing tool
+      - name: Run Tests
+        run: |
+          salt-call -l debug --local -c .salttest state.show_sls alertlogic.user
+          salt-call -l debug --local -c .salttest state.show_sls alertlogic.agent
