@@ -1,0 +1,21 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+{%- import_yaml 'alertlogic/user/defaults.yaml' as defaults %}
+
+{# Allow custom imports to reduce pillar load on the master #}
+{%- set import_file = salt['pillar.get']('alertlogic:user:defaults', '') %}
+{% if import_file|length > 0 %}
+  {%- set custom_defaults = {} %}
+  {%- set import_type = import_file|lower|regex_match('.*\.(json|ya?ml)$') %}
+  {%- if import_type|length > 0 %}
+    {%- if import_type[0] in ['json'] %}
+      {%- import_json import_file as custom_defaults %}
+    {%- elif import_type[0] in ['yml', 'yaml'] %}
+      {%- import_yaml import_file as custom_defaults %}
+    {%- endif %}
+  {% endif %}
+  {%- do salt['defaults.merge'](defaults, custom_defaults) %}
+{%- endif %}
+
+{%- set al_user_settings = salt['pillar.get']('alertlogic:user', defaults['alertlogic']['user'], merge=True) %}

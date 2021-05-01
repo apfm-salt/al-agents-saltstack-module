@@ -1,0 +1,18 @@
+# vim: sts=2 ts=2 sw=2 et ai
+
+alertlogic:
+  user:
+    name: al_user
+    fullname: AlertLogic
+    pubkey: ''
+  agent:
+    package_url: https://scc.alertlogic.net/software
+    keyfile: /var/alertlogic/etc/host_key.pem
+    registration_key: ''
+    egress_url: ''
+    proxy_url: ''
+    autoscaling: False
+    for_imaging: False
+    initscript: rsyslog
+    service_name: al-agent
+    package_name: al-agent
