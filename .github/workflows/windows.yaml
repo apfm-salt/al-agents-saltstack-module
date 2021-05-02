@@ -23,12 +23,11 @@ jobs:
           Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
           C:\Temp\bootstrap-salt.ps1 -runservice false -pythonVersion 3
           Set-ExecutionPolicy -ExecutionPolicy Undefined -Scope CurrentUser
+          C:\salt\salt-call.bat --versions-report
+          echo "C:\salt" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
       # FIXME move this to a testing tool
       - name: Run Tests
         run: |
-          python --version
-          dir c:/salt
-          C:\salt\salt-call.bat --versions-report
-          C:\salt\salt-call.bat -l debug --local -c .salttest state.show_sls alertlogic.user
-          C:\salt\salt-call.bat -l debug --local -c .salttest state.show_sls alertlogic.agent
+          salt-call -l debug --local -c .salttest state.show_sls alertlogic.user
+          salt-call -l debug --local -c .salttest state.show_sls alertlogic.agent
