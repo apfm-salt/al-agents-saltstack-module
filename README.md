@@ -1,5 +1,6 @@
 Alert Logic Salt Formula
 ========================
+
 Salt formula for managing the Alert Logic agent and resources it depends on.
 
 This formula supplies its own winrepo-ng definitions for the AlertLogic agent.
@@ -31,33 +32,33 @@ pillar_
 Attributes
 ----------
 
-### registration_key
+**registration_key**
 Your registration key.  Not required for cloud-based installs.
 
 - **Default: `''`**
 
-### autoscaling
+**autoscaling**
 Determines if your installation will be configured as a `host` or `role`
 server.  If `True` then configure as a `role` server, otherwise configure as a
 `host`.
 
 - **Default: `False`**
 
-### for_imaging
+**for_imaging**
 Determines if the install process will continue or stop prior to provisioning.
 If set to `True` then only the install process s performed.  This allows for
 instance snapshots to be saved and started for later use.
 
 - **Default: `False`**
 
-### egress_url
+**egress_url**
 This attribute is useful if you have a machine that is responsible for outbound
 traffic (NAT box). If you specify your own URL ensure that it is a properly
 formatted URI.
 
 - **Default: `vaporator.alertlogic.com:443`**
 
-### proxy_url
+**proxy_url**
 This attribute is useful if you want to avoid a single point of egress.  When a
 proxy is used, both `egress_url` and `proxy_url` values are required.  If you
 specify a proxy URL ensure that it is a properly formatted URI.
@@ -67,26 +68,27 @@ specify a proxy URL ensure that it is a properly formatted URI.
 Available states
 ----------------
 
-### alertlogic.user
+**alertlogic.user**
 Create a user suitable for performing an AlertLogic Credentiated Scan.
 
-### alertlogic.agent
+**alertlogic.agent**
 Install/Configure the AlertLogic agent.
 
-### alertlogic.logger.rsyslog
+**alertlogic.logger.rsyslog**
 Install/configure the agent and configures rsyslog.
 
-## alertlogic.logger.syslog_ng
+**alertlogic.logger.syslog_ng**
 Install/configure the agent and configure syslog-ng.
 
-## alertlogic.logger
+**alertlogic.logger**
 Install/configure the agent and logging.
 
-## alertlogic.logger.test
+**alertlogic.logger.test**
 Sends a test log to ensure everything is working
 
 SELinux
 -------
+
 If selinux is enabled you need to have semanage present in root path.
 
 Contributing
@@ -101,6 +103,7 @@ Contributing
 
 License and Authors
 -------------------
+
 License:
 
 - Distributed under the Apache 2.0 license.
