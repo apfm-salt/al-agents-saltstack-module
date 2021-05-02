@@ -13,8 +13,7 @@ jobs:
     steps:
       - name: Prep OS
         run: |
-          zypper install tar
-          zypper install curl
+          zypper install -y tar curl
 
       - uses: actions/checkout@v2
 
