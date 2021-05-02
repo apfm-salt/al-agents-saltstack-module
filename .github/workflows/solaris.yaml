@@ -3,7 +3,7 @@ name: Solaris
 on: [pull_request]
 
 jobs:
-  build:
+  Test:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2

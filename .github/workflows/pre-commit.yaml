@@ -1,12 +1,9 @@
-name: pre-commit
+name: Pre-commit
 
-on:
-  pull_request:
-  push:
-    branches: [master]
+on: [pull_request]
 
 jobs:
-  pre-commit:
+  Test:
     name: Run all pre-commit tests
     runs-on: ubuntu-latest
     steps:

@@ -3,7 +3,7 @@ name: OpenSuSE
 on: [pull_request]
 
 jobs:
-  build:
+  Test:
     runs-on: ubuntu-latest
     container: opensuse/leap:${{ matrix.version }}
     strategy:

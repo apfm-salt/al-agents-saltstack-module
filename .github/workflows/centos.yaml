@@ -3,7 +3,7 @@ name: CentOS
 on: [pull_request]
 
 jobs:
-  build:
+  Test:
     runs-on: ubuntu-latest
     container: centos:${{ matrix.version }}
     strategy:
