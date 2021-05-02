@@ -10,10 +10,9 @@ jobs:
       - name: Run Tests
         uses: vmactions/solaris-vm@v0.0.3
         with:
-          usesh: true
           prepare: pkgutil -i -i curl
           run: |
             curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
             sh ./bootstrap-salt.sh -X
             salt-call -l debug --local -c .salttest state.show_sls alertlogic.user
-            salt-call -l debug --local -c .salttest state.show_sls alertlogic.agent
+            #salt-call -l debug --local -c .salttest state.show_sls alertlogic.agent
