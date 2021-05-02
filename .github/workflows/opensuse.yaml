@@ -26,4 +26,4 @@ jobs:
       - name: Run Tests
         run: |
           salt-call -l debug --local -c .salttest state.show_sls alertlogic.user
-          salt-call -l debug --local -c .salttest state.show_sls alertlogic.agent
+          #salt-call -l debug --local -c .salttest state.show_sls alertlogic.agent
