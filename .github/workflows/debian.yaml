@@ -11,12 +11,15 @@ jobs:
         version: ['stable', 'unstable', 'testing']
 
     steps:
+      - name: Prep OS
+        run: |
+          apt-get -y update
+          apt-get -y install curl
+
       - uses: actions/checkout@v2
 
       - name: Install Salt
         run: |
-          apt-get -y update
-          apt-get -y install curl
           curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
           sh ./bootstrap-salt.sh -X
 

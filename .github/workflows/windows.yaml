@@ -10,11 +10,14 @@ jobs:
     runs-on: windows-${{ matrix.version }}
 
     steps:
+      - name: Prep OS
+        run: |
+          choco install python --version 3.8.0
+
       - uses: actions/checkout@v2
 
       - name: Install Salt
         run: |
-          choco install python --version 3.8.0
           Invoke-WebRequest -Uri https://winbootstrap.saltproject.io -OutFile C:\Temp\bootstrap-salt.ps1
           Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
           C:\Temp\bootstrap-salt.ps1 -runservice false

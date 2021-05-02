@@ -11,7 +11,7 @@ jobs:
         version: ['15', '42']
 
     steps:
-      - name: Prep Suse
+      - name: Prep OS
         run: |
           zypper install tar
           zypper install curl
