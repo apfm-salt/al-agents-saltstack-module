@@ -6,7 +6,6 @@ repos:
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
-      - id: check-yaml
       - id: check-added-large-files
       - id: check-merge-conflict
       - id: check-symlinks
@@ -15,6 +14,7 @@ repos:
     rev: v0.5.2
     hooks:
       - id: salt-lint
+        types: ["file", "non-executable", "salt", "text"]
   - repo: https://github.com/psf/black
     rev: 20.8b1
     hooks:
@@ -24,3 +24,8 @@ repos:
     hooks:
       - id: markdownlint
       - id: git-check
+  - repo: https://github.com/awslabs/git-secrets
+    rev: master
+    hooks:
+      - id: git-secrets
+        types: ["file", "text"]

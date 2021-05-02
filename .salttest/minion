@@ -3,6 +3,7 @@
 id: salt-test
 file_client: local
 local: True
+fileserver_ignoresymlinks: True
 cache_jobs: False
 grains:
   deployment: github
