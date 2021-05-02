@@ -26,6 +26,7 @@ jobs:
 
       # FIXME move this to a testing tool
       - name: Run Tests
+        shell: cmd
         run: |
           salt-call -l debug --local -c .salttest state.show_sls alertlogic.user
           salt-call -l debug --local -c .salttest state.show_sls alertlogic.agent
