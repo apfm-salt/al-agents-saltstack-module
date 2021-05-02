@@ -21,7 +21,7 @@ jobs:
         run: |
           Invoke-WebRequest -Uri https://winbootstrap.saltproject.io -OutFile C:\Temp\bootstrap-salt.ps1
           Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
-          C:\Temp\bootstrap-salt.ps1 -runservice false
+          C:\Temp\bootstrap-salt.ps1 -runservice false -pythonVersion 3
           Set-ExecutionPolicy -ExecutionPolicy Undefined -Scope CurrentUser
 
       # FIXME move this to a testing tool
