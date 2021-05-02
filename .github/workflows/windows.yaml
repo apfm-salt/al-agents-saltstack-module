@@ -12,7 +12,8 @@ jobs:
     steps:
       - name: Prep OS
         run: |
-          choco install python --version 3.8.0
+          #choco install python --version 3.8.0
+          echo "Skipping"
 
       - uses: actions/checkout@v2
 
