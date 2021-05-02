@@ -11,11 +11,15 @@ jobs:
         version: ['15', '42']
 
     steps:
+      - name: Prep Suse
+        run: |
+          zypper install tar
+          zypper install curl
+
       - uses: actions/checkout@v2
 
       - name: Install Salt
         run: |
-          yum -y install curl
           curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
           sh ./bootstrap-salt.sh -X
 
