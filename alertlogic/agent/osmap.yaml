@@ -5,14 +5,14 @@
 {%- set osmajorrelease = salt['grains.get']('osmajorrelease', grains.osrelease_info[0]) %}
 
 Debian:
-{%- if osmajorrelease >= 7 %}
+{%- if osmajorrelease|int >= 7 %}
     syslog_ng_source: s_all
 {%- else %}
     syslog_ng_source: s_sys
 {%- endif %}
 
 RedHat:
-{%- if osmajorrelease >= 6 %}
+{%- if osmajorrelease|int >= 6 %}
   syslog_ng_source: s_all
 {%- else %}
   syslog_ng_source: s_sys
