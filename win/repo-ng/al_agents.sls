@@ -1,4 +1,4 @@
-{%- from "al_agents/map.jinja" import al_agents_settings %}
+{%- from "alertlogic/agent/map.jinja" import al_agents_settings %}
 
 {{ al_agents_settings.package_name }}:
   latest:
