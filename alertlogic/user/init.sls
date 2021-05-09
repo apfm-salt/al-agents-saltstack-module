@@ -2,10 +2,10 @@
 {% set password = salt['pillar.get']('alertlogic:user:password', '') %}
 
 {%- if grains.kernel == 'Windows' %}
-include: ["al_user.windows"]
+include: ["alertlogic.user.windows"]
 {%- else %}
   {%- if al_user_settings.pubkey|length > 1 %}
-include: ["al_user.ssh"]
+include: ["alertlogic.user.ssh"]
   {%- endif %}
 {%- endif %}
 
