@@ -1,0 +1,28 @@
+name: Lint
+on: [pull_request]
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+      - run: npm install
+      - uses: wagoid/commitlint-github-action@v3
+        with:
+          configFile: .commitlint.js
+        env:
+          NODE_PATH: ${{ github.workspace }}/node_modules
+  salt-lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: roaldnefs/salt-lint-action@master
+      env:
+        ACTION_STATE_FIND_PATTERN: '^.*\.sls$'
+        ACTION_STATE_FIND_TYPE: 'regex'
+        SALT_LINT_EXTRA_PARAMS: '-v'
