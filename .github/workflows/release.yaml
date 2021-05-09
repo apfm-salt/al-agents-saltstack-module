@@ -19,6 +19,8 @@ jobs:
           onlyLastTag: "true"
           stripHeaders: "true"
           stripGeneratorNotice: "true"
+          pullRequests: "false"
+          unreleased: "false"
       - name: "🚀 Create GitHub release"
         uses: actions/create-release@v1
         env:
