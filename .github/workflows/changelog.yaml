@@ -11,6 +11,8 @@ jobs:
       - name: "📥 Check-out"
         uses: actions/checkout@v2
       - name: "✏️ Generate release changelog"
+        with:
+          token: ${{ secrets.APFMOPS_REPO_TOKEN }}
         uses: heinrichreimer/github-changelog-generator-action@v2.1.1
         with:
           onlyLastTag: true
