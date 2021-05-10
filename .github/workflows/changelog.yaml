@@ -17,18 +17,16 @@ jobs:
         uses: heinrichreimer/github-changelog-generator-action@v2.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          onlyLastTag: "true"
-          stripHeaders: "true"
-          stripGeneratorNotice: "true"
-          pullRequests: "false"
-          unreleased: "false"
-      - run: |
-          set -e
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git config user.name 'github-actions[bot]'
-          git add 'CHANGELOG.md'
-          git commit -m 'Updated CHANGELOG.md'
-      - name: Commit & Push changes
-        uses: actions-js/push@master
+          onlyLastTag: true
+          stripHeaders: true
+          stripGeneratorNotice: true
+          pullRequests: false
+          unreleased: false
+          issues: true
+          prWoLabels: false
+          issuesWoLabels: true
+          addSections: '{"documentation":{"prefix":"**Documentation:**","labels":["documentation"]}}'
+      - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_message: Update Changelog
+          file_pattern: CHANGELOG.md
