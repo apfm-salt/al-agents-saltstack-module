@@ -14,7 +14,7 @@ jobs:
       - name: "📥 Check-out"
         uses: actions/checkout@v1
       - name: "✏️ Generate release changelog"
-        uses: heinrichreimer/github-changelog-generator-action@v2.1.1
+        uses: heinrichreimer/github-changelog-generator-action@v2.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           onlyLastTag: "true"
@@ -24,7 +24,9 @@ jobs:
           unreleased: "false"
       - run: |
           set -e
-          git add CHANGELOG.md
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git config user.name 'github-actions[bot]'
+          git add 'CHANGELOG.md'
           git commit -m 'Updated CHANGELOG.md'
       - name: Commit & Push changes
         uses: actions-js/push@master
