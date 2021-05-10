@@ -11,7 +11,7 @@ jobs:
       - name: "📥 Check-out"
         uses: actions/checkout@v1
         with:
-          ref: ${{ github.head_ref }}
+          ref: master
       - name: "✏️ Generate release changelog"
         uses: heinrichreimer/github-changelog-generator-action@v2.1.1
         with:
