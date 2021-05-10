@@ -30,6 +30,7 @@ jobs:
         uses: benjefferies/branch-protection-bot@master
         with:
           access-token: ${{ secrets.APFMOPS_REPO_TOKEN }}
+          enforce_admins: false
       - name: Push Changelog
         run: |
           set -e
@@ -45,3 +46,4 @@ jobs:
         if: always()  # Force to always run this step to ensure "include administrators" is always turned back on
         with:
           access-token: ${{ secrets.APFMOPS_REPO_TOKEN }}
+          enforce_admins: true
