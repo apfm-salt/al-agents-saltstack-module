@@ -2,10 +2,7 @@ name: Changelog
 
 on:
   push:
-    paths-ignore:
-      - 'CHANGELOG.md'
-    branches:
-      - master
+    branches: ["main"]
 
 jobs:
   changelog:
@@ -14,7 +11,7 @@ jobs:
       - name: "📥 Check-out"
         uses: actions/checkout@v1
       - name: "✏️ Generate release changelog"
-        uses: heinrichreimer/github-changelog-generator-action@v2.2
+        uses: heinrichreimer/github-changelog-generator-action@v2.1.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           onlyLastTag: true
