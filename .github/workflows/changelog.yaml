@@ -27,3 +27,4 @@ jobs:
         with:
           commit_message: Update Changelog
           file_pattern: CHANGELOG.md
+          branch: master
