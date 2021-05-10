@@ -23,7 +23,7 @@ jobs:
           prWoLabels: false
           issuesWoLabels: true
           addSections: '{"documentation":{"prefix":"**Documentation:**","labels":["documentation"]}}'
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v4.11.0
         with:
           commit_message: Update Changelog
           commit_author: Automatic Changelog <github-action@users.noreply.github.com>
