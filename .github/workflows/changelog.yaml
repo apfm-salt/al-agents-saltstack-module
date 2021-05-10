@@ -13,7 +13,6 @@ jobs:
       - name: "✏️ Generate release changelog"
         uses: heinrichreimer/github-changelog-generator-action@v2.1.1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           onlyLastTag: true
           stripHeaders: true
           stripGeneratorNotice: true
@@ -23,9 +22,19 @@ jobs:
           prWoLabels: false
           issuesWoLabels: true
           addSections: '{"documentation":{"prefix":"**Documentation:**","labels":["documentation"]}}'
-      - run: |
+      - name: Temporarily disable branch protection
+        uses: benjefferies/branch-protection-bot@master
+        with:
+          access-token: ${{ secrets.APFMOPS_REPO_TOKEN }}
+      - name: Push Changelog
+        run: |
           git config user.name 'Automatic Changelog'
           git config user.email '<github-actions@users.noreply.github.com>'
           git add CHANGELOG.md
           git commit -m 'Update Changelog'
           git push
+      - name: Enable branch protection
+        uses: benjefferies/branch-protection-bot@master
+        if: always()  # Force to always run this step to ensure "include administrators" is always turned back on
+        with:
+          access-token: ${{ secrets.APFMOPS_REPO_TOKEN }}
