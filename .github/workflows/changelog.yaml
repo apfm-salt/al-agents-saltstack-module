@@ -39,7 +39,7 @@ jobs:
           tac CHANGELOG.md | awk 'NF {p=1} p' | tac > CHANGELOG.new
           mv CHANGELOG.new CHANGELOG.md
           git add CHANGELOG.md
-          git commit -m 'Update Changelog'
+          git commit -m 'Update Changelog' || :
           git push
       - name: Enable branch protection
         uses: benjefferies/branch-protection-bot@master
