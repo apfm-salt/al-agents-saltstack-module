@@ -2,6 +2,7 @@
 
 **Implemented enhancements:**
 
+- Re-enable git-check pre-commit hook [\#41](https://github.com/apfm-salt/alertlogic-formula/issues/41)
 - Cleanup changelog generation [\#10](https://github.com/apfm-salt/alertlogic-formula/issues/10)
 - Add automatic changelog [\#7](https://github.com/apfm-salt/alertlogic-formula/issues/7)
 - Add issue testing to commitlint PR test [\#6](https://github.com/apfm-salt/alertlogic-formula/issues/6)
@@ -18,6 +19,3 @@
 - Release action failure [\#12](https://github.com/apfm-salt/alertlogic-formula/issues/12)
 - bug: al\_user state and file prefix usage [\#9](https://github.com/apfm-salt/alertlogic-formula/issues/9)
 - Bug: osmajorrelease string to int comparison [\#8](https://github.com/apfm-salt/alertlogic-formula/issues/8)
-
-
-
