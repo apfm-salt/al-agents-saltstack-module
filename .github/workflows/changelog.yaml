@@ -32,8 +32,11 @@ jobs:
           access-token: ${{ secrets.APFMOPS_REPO_TOKEN }}
       - name: Push Changelog
         run: |
+          set -e
           git config user.name 'Automatic Changelog'
           git config user.email '<github-actions@users.noreply.github.com>'
+          tac CHANGELOG.md | awk 'NF {p=1} p' | tac > CHANGELOG.new
+          mv CHANGELOG.new CHANGELOG.md
           git add CHANGELOG.md
           git commit -m 'Update Changelog'
           git push
