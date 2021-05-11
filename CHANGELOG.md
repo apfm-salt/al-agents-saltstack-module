@@ -1,4 +1,6 @@
+# Changelog
 
+## [Unreleased](https://github.com/apfm-salt/alertlogic-formula/tree/HEAD)
 
 **Implemented enhancements:**
 
@@ -10,7 +12,9 @@
 
 **Fixed bugs:**
 
+- Changelog needs headers [\#40](https://github.com/apfm-salt/alertlogic-formula/issues/40)
 - Pre-commit hooks failing on auto-generated files [\#37](https://github.com/apfm-salt/alertlogic-formula/issues/37)
+- Toggling admin permissions in workflow out of sync [\#36](https://github.com/apfm-salt/alertlogic-formula/issues/36)
 - Generated changelog not reporting on "unreleased" issues [\#34](https://github.com/apfm-salt/alertlogic-formula/issues/34)
 - Changelog generation triggers changelog generation [\#33](https://github.com/apfm-salt/alertlogic-formula/issues/33)
 - Automaticly generated changelog is empty [\#32](https://github.com/apfm-salt/alertlogic-formula/issues/32)
