@@ -10,7 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "📥 Check-out"
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+      - name: "✏️ Generate release changelog"
+        uses: heinrichreimer/github-changelog-generator-action@v2.1.1
+        id: generate-changelog
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          onlyLastTag: false
+          stripHeaders: false
+          stripGeneratorNotice: true
+          pullRequests: false
+          unreleased: true
+          issues: true
+          prWoLabels: false
+          issuesWoLabels: true
+          addSections: '{"documentation":{"prefix":"**Documentation:**","labels":["documentation"]}}'
       - name: "🚀 Create GitHub release"
         uses: actions/create-release@v1
         env:
@@ -18,5 +32,4 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body_path: CHANGELOG.md
-          body: ${{ steps.generate-release-changelog.outputs.changelog }}
+          body: ${{ steps.generate-changelog.outputs.changelog }}
