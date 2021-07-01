@@ -1,10 +1,10 @@
-{%- from "alertlogic/agent/map.jinja" import al_agents_settings %}
+{%- from "alertlogic/agent/map.jinja" import al_agent_settings %}
 
-{{ al_agents_settings.package_name }}:
+{{ al_agent_settings.package_name }}:
   latest:
     full_name: 'AlertLogic Agent'
-    installer: '{{ al_agents_settings.package_url }}/{{ al_agents_settings.package_file }}'
-    uninstaller: '{{ al_agents_settings.package_url }}/{{ al_agents_settings.package_file }}'
+    installer: '{{ al_agent_settings.package_url }}/{{ al_agent_settings.package_file }}'
+    uninstaller: '{{ al_agent_settings.package_url }}/{{ al_agent_settings.package_file }}'
     msiexec: True
     locale: en_US
     reboot: False
