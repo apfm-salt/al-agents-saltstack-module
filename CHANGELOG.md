@@ -24,3 +24,7 @@
 - Release action failure [\#12](https://github.com/apfm-salt/alertlogic-formula/issues/12)
 - bug: al\_user state and file prefix usage [\#9](https://github.com/apfm-salt/alertlogic-formula/issues/9)
 - Bug: osmajorrelease string to int comparison [\#8](https://github.com/apfm-salt/alertlogic-formula/issues/8)
+
+**Closed issues:**
+
+- al\_agents\_settings is referenced in the win pkg sls, change that to al\_agent\_settings [\#55](https://github.com/apfm-salt/alertlogic-formula/issues/55)
